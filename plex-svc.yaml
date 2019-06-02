@@ -1,0 +1,42 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: plex
+  labels:
+    app: plex
+spec:
+  selector:
+    app: plex
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 32400
+    name: webui
+  - protocol: TCP
+    port: 3005
+    targetPort: 3005
+    name: "3005"
+  - protocol: TCP
+    port: 8324
+    targetPort: 8324
+    name: "8324"
+  - protocol: TCP
+    port: 32469
+    targetPort: 32469
+    name: "32469"
+  - protocol: UDP
+    port: 32410
+    targetPort: 32410
+    name: "32410"
+  - protocol: UDP
+    port: 32412
+    targetPort: 32412
+    name: "32412"
+  - protocol: UDP
+    port: 32413
+    targetPort: 32413
+    name: "32413"
+  - protocol: UDP
+    port: 32414
+    targetPort: 32414
+    name: "32414"

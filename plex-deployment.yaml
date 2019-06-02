@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: plex
+  labels:
+    app: plex
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: plex
+    spec:
+      hostNetwork: true
+      containers:
+      - name: pms
+        image: plexinc/pms-docker:latest
+        ports:
+        - containerPort: 32400
+        - containerPort: 3005
+        - containerPort: 8324
+        - containerPort: 32469
+        - containerPort: 1900
+        - containerPort: 32410
+        - containerPort: 32412
+        - containerPort: 32413
+        - containerPort: 32414
+        volumeMounts:
+        - mountPath: /TV
+          name: tvdata
+        - mountPath: /Movies
+          name: moviedata
+        env:
+          - name: "ADVERTISE_IP"
+            value: "http://your.domain.com"
+          - name: "PLEX_CLAIM"
+            value: "your claim from plex.tv/claim"
+      volumes:
+      - name: tvdata
+        persistentVolumeClaim:
+          claimName: tv
+      - name: moviedata
+        persistentVolumeClaim:
+          claimName: movies

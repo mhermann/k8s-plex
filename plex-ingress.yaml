@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: plex
+  labels:
+    app: plex
+spec:
+  rules:
+  - host: your.domain.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: plex
+          servicePort: 80
